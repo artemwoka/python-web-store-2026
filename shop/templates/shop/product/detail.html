@@ -1,4 +1,5 @@
 {% extends "shop/base.html" %}
+{% load tags %}
 
 {% block title %}{{ product.name }} — Літера{% endblock %}
 
@@ -37,9 +38,7 @@
         </p>
 
         {% if product.description %}
-            <div class="content">
-                {{ product.description|linebreaks }}
-            </div>
+            <div class="content">{{ product.description|markdown }}</div>
         {% else %}
             <p class="has-text-grey">Опис товару відсутній.</p>
         {% endif %}
