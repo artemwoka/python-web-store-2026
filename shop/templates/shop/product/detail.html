@@ -1,0 +1,48 @@
+{% extends "shop/base.html" %}
+
+{% block title %}{{ product.name }} — Літера{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="Навігація">
+    <ul>
+        <li><a href="{% url 'shop:product_list' %}">Усі товари</a></li>
+        <li><a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a></li>
+        <li class="is-active"><a href="#" aria-current="page">{{ product.name }}</a></li>
+    </ul>
+</nav>
+
+<div class="columns is-variable is-6">
+    <div class="column is-half">
+        {% if product.image %}
+            <figure class="image">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            </figure>
+        {% else %}
+            <div class="has-background-light is-flex is-align-items-center is-justify-content-center"
+                 style="min-height: 320px;">
+                <span class="has-text-grey">Зображення відсутнє</span>
+            </div>
+        {% endif %}
+    </div>
+
+    <section class="column">
+        <p class="subtitle is-6">
+            <a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a>
+        </p>
+
+        <h1 class="title is-2">{{ product.name }}</h1>
+
+        <p class="title is-4 has-text-primary">
+            {{ product.price|floatformat:2 }} грн
+        </p>
+
+        {% if product.description %}
+            <div class="content">
+                {{ product.description|linebreaks }}
+            </div>
+        {% else %}
+            <p class="has-text-grey">Опис товару відсутній.</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}
